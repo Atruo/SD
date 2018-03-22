@@ -1,0 +1,10 @@
+--2018-03-15 18:26:38--  http://localhost:8080/
+Resolviendo localhost (localhost)... 127.0.0.1
+Conectando con localhost (localhost)[127.0.0.1]:8080... conectado.
+Petición HTTP enviada, esperando respuesta... Error de lectura (Conexión reinicializada por la máquina remota) en las cabeceras.
+Reintentando.
+
+--2018-03-15 19:03:38--  (intento: 2)  http://localhost:8080/
+Conectando con localhost (localhost)[127.0.0.1]:8080... falló: Conexión rehusada.
+Resolviendo localhost (localhost)... 127.0.0.1
+Conectando con localhost (localhost)[127.0.0.1]:8080... falló: Conexión rehusada.
