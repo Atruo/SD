@@ -45,7 +45,7 @@ int main (int argc, char *argv[])
 	char *metodo, *version,*document,*document_root, *uri;
         int topeclientes=10;
 	document_root=malloc(1024);
-	strcpy(document_root,"/home/p1/sd/sd1");
+	strcpy(document_root,"/home/sergio/Escritorio/GIT/SD");
 	uri=malloc(1024);
 	strcpy(uri,"/index.html");
         
