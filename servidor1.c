@@ -43,9 +43,9 @@ int main (int argc, char *argv[])
  	char respuesta[1024]="\n\r";
 	FILE *archivoconf, *asset;
 	char *metodo, *version,*document,*document_root, *uri;
-        int topeclientes=10;
+    int topeclientes=10;
 	document_root=malloc(1024);
-	strcpy(document_root,"/home/sergio/Escritorio/GIT/SD");
+	strcpy(document_root,"~/Documentos");
 	uri=malloc(1024);
 	strcpy(uri,"/index.html");
         
@@ -210,7 +210,7 @@ int main (int argc, char *argv[])
 				if(strcmp(version,"HTTP/1.1")==0){
 				  
 					asset=fopen(document_root, "r"); //buscamos en la ruta 	
-					/*printf("Document_root: %s\n", document_root);*/
+					printf("Document_root: %s\n", document_root);// ESTO HAY QUE OCULTARLO
 					if(asset==NULL){ //no lo encontramos
 						
 						errorinterno(respuesta,404,date,document,asset,size,tamanyo,file_stats);
