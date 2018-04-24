@@ -45,21 +45,20 @@ int main (int argc, char *argv[])
 	char *metodo, *version,*document,*document_root, *uri;
     int topeclientes=10;
 	document_root=malloc(1024);
-	strcpy(document_root,"~/Documentos");
+	strcpy(document_root,"/home/sergio/Escritorio/GIT/SD");
 	uri=malloc(1024);
-	strcpy(uri,"/index.html");
+	strcpy(uri,"./index.html");
         
 	/* Comprobar los argumentos */
 	
 	//GESTION DE LECTURA DEL FICHERO DE CONFIGURACION//
 	
 	if(argc>1){
-	  /*printf("holaaaaaaaaaa\n\r");*/
-	
-	  if(strcmp(argv[1],"-c")==0){ //aqui controlamos esta ./servidor  [argv[0]] -c argv[1] archivoconf argv[2]
+	  	
+	  if(strcmp(argv[1],"-c")==0){ 
 	    archivoconf=fopen(argv[2], "r"); // lo abre únicamente para lectura, de ahí viene la r 
 	    if(archivoconf==NULL){
-	      printf("No está abriendo el archivito\n\r");
+	      printf("No está abriendo el archivo\n\r");
 	    }
 	    if(archivoconf!=NULL){
 	      leerarchivoconf(archivoconf,document_root, topeclientes,uri, puerto);
@@ -73,7 +72,7 @@ int main (int argc, char *argv[])
 		 
 		 archivoconf=fopen(argv[3], "r"); // lo abre únicamente para lectura, de ahí viene la r 
 		 if(archivoconf==NULL){
-		  printf("No está abriendo el archivito\n\r");
+		  printf("No está abriendo el archivo\n\r");
 		 }
 		  if(archivoconf!=NULL){
 		    leerarchivoconf(archivoconf,document_root, topeclientes,uri, puerto);
@@ -130,8 +129,8 @@ int main (int argc, char *argv[])
 			          //POSIBLE ERROR DE LECTURA 
 			if (recibidos == -1)
 			{
-				            fprintf(stderr, "Error de lectura del mensaje\n\r"); //strcat lo que hace es concatenar y va guardando el resultado en respuesta
-				            strcat(respuesta,"HTTP/1.1 500 Internal Server Error\n");
+				        fprintf(stderr, "Error de lectura del mensaje\n\r"); //strcat lo que hace es concatenar y va guardando el resultado en respuesta
+				        strcat(respuesta,"HTTP/1.1 500 Internal Server Error\n");
 					    strcat(respuesta, "Connection: close\n\r");
 					    strcat(respuesta, "Content-Length: 96");
 					    strcat(respuesta, "\n\r");
@@ -195,13 +194,11 @@ int main (int argc, char *argv[])
 
 
 			//ANALISIS DE CADA METODO
-			//IGUAL PONER AQUI, IF METODO ES != NULL
 			
 			
-			//validandoversion(version); ahorrariamos codigo, mas eficiencia ostiaaaaaaaaaaaas 
-	
 			if(strcmp(metodo,"GET")==0){
 				struct stat file_stats;
+
 				strcat(document_root, uri); 
 				//anyade un bloque de memoria a otro, aqui anyado la ruta interna del servidor con la externa del cliente
 				
@@ -210,7 +207,7 @@ int main (int argc, char *argv[])
 				if(strcmp(version,"HTTP/1.1")==0){
 				  
 					asset=fopen(document_root, "r"); //buscamos en la ruta 	
-					printf("Document_root: %s\n", document_root);// ESTO HAY QUE OCULTARLO
+					//printf("Document_root: %s\n", document_root);// ESTO HAY QUE OCULTARLO
 					if(asset==NULL){ //no lo encontramos
 						
 						errorinterno(respuesta,404,date,document,asset,size,tamanyo,file_stats);
@@ -230,17 +227,7 @@ int main (int argc, char *argv[])
 				  
 				}
 				
-		/*		
-			n=strlen(respuesta);
-		enviados = write(socket2, respuesta, n);
-		mensaje[recibidos] = '\0';
-			if (enviados == -1 || enviados < n)
-			{
-				fprintf(stderr, "Error enviando la respuesta (%d)\n\r",enviados);
-				close(listener);
-				
-			}
-			close(socket2);*/
+		
 			}else if(strcmp(metodo,"HEAD")==0){
 			  struct stat file_stats;
 			  
@@ -365,11 +352,11 @@ int main (int argc, char *argv[])
 						
 
 			close(socket2);
-			exit(0); /* el hijo ya no tiene que hacer nada */
+			exit(0);
 		}
-		else /* soy el padre */
+		else 
 		{
-			close(socket2); /* el padre no usa esta conexión */
+			close(socket2); 
 		}
 
 	}
@@ -379,23 +366,6 @@ int main (int argc, char *argv[])
 	printf("Socket cerrado\n\r");
 	return 0;
 }
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
 void leerarchivoconf(FILE* archivoconf, char* document_root, int topeclientes, char* uri, int puerto){
 	      char* linea;
 	      size_t length=0;
@@ -405,21 +375,23 @@ void leerarchivoconf(FILE* archivoconf, char* document_root, int topeclientes, c
 		almacen=strtok(linea," ");
 		if(strcmp(almacen, "DocumentRoot")==0){
 		  almacen=strtok(NULL,"\n");
+		
 		  printf("Document_root:%s\n\r",almacen);
 		  strcpy(document_root,almacen);
 		}else if(strcmp(almacen, "Listen")==0){
 		  almacen=strtok(NULL,"\n");
 		  puerto=atoi(almacen);
 		}
-		else if(strcmp(almacen, "MaxClients")==0){
-		  almacen=strtok(NULL,"\n");
-		  topeclientes=atoi(almacen);
-		}
 		else if(strcmp(almacen, "DirectoryIndex")==0){
 		  almacen=strtok(NULL,"\n");
 		  printf("Uri:%s\n\r",almacen);
 		  strcpy(uri,almacen);
 		}
+		else if(strcmp(almacen, "MaxClients")==0){
+		  almacen=strtok(NULL,"\n");
+		  topeclientes=atoi(almacen);
+		}
+		
 	      }
 		
 	      fclose(archivoconf);
