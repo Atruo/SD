@@ -1,0 +1,20 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "Proyecto de API RESTful con Node.js y Express para SD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "RESTfull",
+    "node",
+    "express",
+    "mongo"
+  ],
+  "author": "Grupo 8",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
